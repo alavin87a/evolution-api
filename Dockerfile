@@ -51,11 +51,9 @@ COPY --from=builder /evolution/Docker ./Docker
 COPY --from=builder /evolution/runWithProvider.js ./runWithProvider.js
 COPY --from=builder /evolution/tsup.config.ts ./tsup.config.ts
 
-ENV SSL_KEY_PATH=/etc/ssl/private.key
-ENV SSL_CERT_PATH=/etc/ssl/fullchain.crt
 
 ENV DOCKER_ENV=true
 
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/bash", "-c", ". ./Docker/scripts/deploy_database.sh && echo \"$SSL_CONF_PRIVKEY\" > $SSL_KEY_PATH && echo \"$SSL_CONF_FULLCHAIN\" > $SSL_CERT_PATH && npm run start:prod" ]
+ENTRYPOINT ["/bin/bash", "-c", ". ./Docker/scripts/deploy_database.sh && npm run start:prod" ]
